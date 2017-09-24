@@ -174,7 +174,7 @@ $row1 = mysql_fetch_array($rs1);
 				 $strSQL = "SELECT fio,dr FROM spisok WHERE dr = '$massiv_dr_today[$i]'" ;     // запрос
 				 $rs = mysql_query($strSQL, $db);
 				 $row = mysql_fetch_array($rs);  
-				 echo $row['fio'], "     будет  " , (date('Y')-date_create($row['dr'])->format('Y')); echo " лет";gfd
+				 echo $row['fio'], "     будет  " , (date('Y')-date_create($row['dr'])->format('Y')); echo " лет";
 				}
 				?></p></div>
 			</div>	

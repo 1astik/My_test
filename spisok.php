@@ -59,7 +59,7 @@ if (isset($_POST['create']))
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href = "/lol.php" class="navbar-brand" style="padding:15px 15px;">Профбюро</a>
+            <a href = "/index.php" class="navbar-brand" style="padding:15px 15px;">Профбюро</a>
         </div>
         <div class="collapse navbar-collapse js-navbar">
             <ul class="nav navbar-nav">

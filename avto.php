@@ -14,7 +14,7 @@ if( isset($data['do_login']) )
 		if( $data['password'] == $user['password'] )
 		{
 			setcookie("user",$data['login'],time()+3600);
-			header("Location: /lol.php");
+			header("Location: /index.php");
 			exit;
 		}else	$errors[] = 'Пароль неверный';
 			
