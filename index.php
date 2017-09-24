@@ -1,39 +1,18 @@
 <?php
-
-
-
-if( isset($_POST['down']) )
-{ 	 
-     setcookie("user","",time()-3600);
-}
-
-
+if( isset($_POST['down']) )   {
+	setcookie("user","",time()-3600);
+	header("Location: /avto.php");
+	exit;
+	}
 if ($_COOKIE['user'] == '')
 {
-	header('Location: /avto.php');
-	exit();
+	header("Location: /avto.php");
+	exit;
 }
-else
-{
-	echo '<div id = "nadpis">Профбюро</div><hr>';
-}
-
-
-require "np.php";
-
-for ($i = 0; $i<count($massiv_dr_today); $i++)
-			{
-			 $strSQL = "SELECT fio,dr FROM spisok WHERE dr = '$massiv_dr_today[$i]'" ;     // запрос
-			 $rs = mysql_query($strSQL, $db);
-			 $row = mysql_fetch_array($rs);  
-			 echo "<script>alert(\"Сегодня День рождения у  ".$row['fio'].".\");</script>";
-			}
-
-
-
 if ( isset($_POST['save']) )
 {
-	
+	$db = mysql_connect('localhost', 'root', '');
+	mysql_select_db("prof_br", $db);
 	$tema = $_POST['tema'];
 	$text = $_POST['text'];
 			
@@ -41,222 +20,173 @@ if ( isset($_POST['save']) )
 	$rs = mysql_query($strCR, $db);
 	
 }
-
-
-
-mysql_select_db("prof_br", $db);
+$db = mysql_connect('localhost', 'root', '');
+require "np.php";
 $strSQL = "SELECT tema,text FROM lenta ";  
 $rs1 = mysql_query($strSQL, $db);
-$num_rows = mysql_num_rows( $rs1 );
+$num_rows = mysql_num_rows($rs1);
 for ($i = 1; $i<=($num_rows - 3); $i++)
 $row1 = mysql_fetch_array($rs1);
 
-
 ?>
 
-
-<form method = "POST">
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
     
-	<link href="style/st1.css" rel="stylesheet">
+<meta charset="utf-8">
+<title>Test</title>
+  
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	
-	
-<div id = "wrapper">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
+  
 
-<nav class = "menu">
-		<ul>
-			<li><a href = "#">Списки</a>
-				<ul>
-					<li><a href = "spisok.php">Список кафедры</a></li>
-					<li><a href = "sp_profbr.php">Список профбюро</a></li>
-					<li><a href = "sp_profgrp.php">Список профгруппоргов</a></li>
-					<li><a href = "child.php">Список детей</a></li>
-					<li><a href = "prof_byletu.php">Список профсоюзных билтеов</a></li>
-				</ul>
-			</li>
-			<li><a href = "#">Выписки</a>
+  
+</head>
+<body>
+
+
+<nav class="navbar navbar-default navbar-static">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".js-navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="padding:15px 15px;">Профбюро</a>
+        </div>
+        <div class="collapse navbar-collapse js-navbar">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Списки
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="spisok.php">Список кафедры</a></li>
+						<li><a href="#">Список профбюро</a></li>
+						<li><a href="#">Список профгрупоргов</a></li>
+						<li><a href="#">Список детей</a></li>
+						<li><a href="#">Список билетов</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Выписки
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Выписка</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Прочие документы
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Дни рождения</a></li>
+                        
+                    </ul>
+                </li>
+				<li class="dropdown">
+                    <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        График
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">График проведения собраний</a></li>
+                        
+                    </ul>
+                </li>
+			 </ul>
+            
+			<form method = "POST" class= "form-inline navbar-form navbar-right">
+				<div class = "form-group">
+					<label class = "control-label"><?php echo 'Добро пожаловать, ' . @$_COOKIE["user"]. '!';  ?></label>
+					<button type = "submit" name = "down"  class = "btn btn-default">Выход</button>
+				</div>
+			</form>
 			
-				<ul>
-					<li><a href = "#">Выписка</a></li>
-					
-	            </ul>
-			</li>
-			<li><a href = "#">Прочие документы</a>
-				<ul>
-					<li><a href = "test.html">Дни рождения</a></li>
-					<li><a href = "lil.php">Документы</a></li>
-				</ul>
-			</li>
-			<li><a href = "#">График</a>
-				<ul>
-					<li><a href = "lol.php">График проведения собраний</a></li>
-					
-	            </ul>
-			</li>
 			
-			<li class = "helper"></li>
-        </ul>
-	
-	</nav>
+        </div>
+    </div>
+</nav>
 
-	<div id = "content"> 
-		<div id = "news">  
-		        <p id = "abzac"><?php $row1 = mysql_fetch_array($rs1); echo $row1['tema'];  ?></p>
-				<p><?php    echo $row1['text'];  ?></p>
-		</div>
-    
-    	<div id = "news">  
-		        <p id = "abzac"><?php $row1 = mysql_fetch_array($rs1); echo $row1['tema'];  ?></p>
-				<p><?php  echo $row1['text'];  ?></p>
+  
+<div class = "row">
+		<div class = "col-md-6" style = "margin-left:30px">
+		    <div class="panel panel-primary">  
+		        <div class="panel-heading"><span><?php $row1 = mysql_fetch_array($rs1); echo $row1['tema'];  ?></span></div>
+				<div class="panel-body"><p><?php  echo $row1['text'];  ?></p></div>
+			</div>
+			<div class="panel panel-primary">  
+					<div class="panel-heading"><span><?php $row1 = mysql_fetch_array($rs1); echo $row1['tema'];  ?></span></div>
+					<div class="panel-body"><p><?php  echo $row1['text'];  ?></p></div>
+			</div>	
+			
+			<div class="panel panel-primary">  
+					<div class="panel-heading"><span><?php $row1 = mysql_fetch_array($rs1); echo $row1['tema'];  ?></span></div>
+					<div class="panel-body"><p><?php  echo $row1['text'];  ?></p></div>
+			</div>
+			
+			<form method = "POST">
+			<div class = "panel panel-success" style = "width:500px">  
+					<div class = "panel-heading"><span >Создать сообщение</span></div><br />
+					<p> <span> Тема</span> <input type = "text" size = "30" name = "tema" placeholder = "Тема" />   </p>
+					<p> <span> Текст</span> <textarea name="text" cols="40" rows="3" placeholder = "Текс сообщения"></textarea></p>
+					<button class="btn btn-lg btn-success btn-block" type="submit" name = "save">Cоздать</button>
+					
+			</div>		
+			</form>	
 		</div>
 
-		<div id = "news">  
-		        <p id = "abzac"><?php $row1 = mysql_fetch_array($rs1); echo $row1['tema'];  ?></p>
-				<p><?php  echo $row1['text'];  ?></p>
-		</div>
-		<div id = "create_news">  
-		        <p id = "abzac">Создать сообщение</p>
-				<p> <a id = "abzac"> Тема</a> <input type = "text" size = "30" name = "tema"  />   </p>
-				<p> <a id = "abzac"> Текст</a> <input type = "text" size = "30" name = "text"  /> </p>
-				<p> <input type = "submit" name = "save" value = "Создать" /> </p>
-				
-		</div>
-
-	</div>
-	 
+		<div class="col-md-4" style = "width:400px; float:right; margin-right:30px">
+			<div id = "right" class="panel panel-info" >
+				<span class = "panel-heading"> Скоро День рожденья у:</span>
+				<div class="panel-body"><p><?php 
+					for ($i = 0; $i<count($massiv_all); $i++)
+					{
+					 $strSQL = "SELECT fio,dr FROM spisok WHERE dr = '$massiv_all[$i]'" ;     // запрос
+					 $rs = mysql_query($strSQL, $db);
+					 $row = mysql_fetch_array($rs);  
+					 echo $row['fio'], "   будет  " , (date('Y')-date_create($row['dr'])->format('Y')), "<br>";
+					} ?> </p></div>
+			</div>
+			
 		
-	
-    <div id = "avtobar">
-	<p><?php echo 'Добро пожаловать, ' . @$_COOKIE["user"]. '!';  ?></p>
-		<p><button type = "submit" name = "down">Выход</button> </p>
-	</div>
-	
-	
-	<div id = "avto">
-		<p id = "abzac"> Сегодня день рождения у:</p>
-		<p><?php 
-			for ($i = 0; $i<count($massiv_dr_today); $i++)
-			{
-			 $strSQL = "SELECT fio,dr FROM spisok WHERE dr = '$massiv_dr_today[$i]'" ;     // запрос
-			 $rs = mysql_query($strSQL, $db);
-			 $row = mysql_fetch_array($rs);  
-			 echo $row['fio'], "   будет  " , (date('Y')-date_create($row['dr'])->format('Y')), "<br>";
-			}
-			?></p>
-	</div>
-	
-	
-	<div id = "avto">
-		<p id = "abzac"> Скоро день рождения у:</p>
-		<p id = "test"><?php 
-			for ($i = 0; $i<count($massiv_all); $i++)
-			{
-			 $strSQL = "SELECT fio,dr FROM spisok WHERE dr = '$massiv_all[$i]'" ;     // запрос
-			 $rs = mysql_query($strSQL, $db);
-			 $row = mysql_fetch_array($rs);  
-			 echo $row['fio'], "   будет  " , (date('Y')-date_create($row['dr'])->format('Y')), "<br>";
-			}
-			?></p>
-	</div>
-	
-	
-	<div>
-		<table id="calendar3">
-	<thead>
-		<tr><td colspan="4"><select>
-	<option value="0">Январь</option>
-	<option value="1">Февраль</option>
-	<option value="2">Март</option>
-	<option value="3">Апрель</option>
-	<option value="4">Май</option>
-	<option value="5">Июнь</option>
-	<option value="6">Июль</option>
-	<option value="7">Август</option>
-	<option value="8">Сентябрь</option>
-	<option value="9">Октябрь</option>
-	<option value="10">Ноябрь</option>
-	<option value="11">Декабрь</option>
-	</select><td colspan="3"><input type="number" value="" min="0" max="9999" size="4">
-		<tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
-	<tbody>
-	</table>
-</div>
-	
+			<div id = "right" class="panel panel-info">  
+		        <span class = "panel-heading"> Сегодня День рожденья у:</span> 
+				<div class="panel-body"><p><?php 
+				for ($i = 0; $i<count($massiv_dr_today); $i++)
+				{
+				 $strSQL = "SELECT fio,dr FROM spisok WHERE dr = '$massiv_dr_today[$i]'" ;     // запрос
+				 $rs = mysql_query($strSQL, $db);
+				 $row = mysql_fetch_array($rs);  
+				 echo $row['fio'], "     будет  " , (date('Y')-date_create($row['dr'])->format('Y')); echo " лет";gfd
+				}
+				?></p></div>
+			</div>	
+		</div>
+		
+</div>   
+    	
 
-	
-	
-	
-	
-	
-	
-	
- 
-	
-</div>
-	
-		<div id = "footer">
-<p>"Донецкий Национальный Университет"   @Design by MarkuS </p>
-</div>
-	
-	
-	
-
-<script>
-function Calendar3(id, year, month) {
-var Dlast = new Date(year,month+1,0).getDate(),
-    D = new Date(year,month,Dlast),
-    DNlast = D.getDay(),
-    DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
-    calendar = '<tr>',
-    m = document.querySelector('#'+id+' option[value="' + D.getMonth() + '"]'),
-    g = document.querySelector('#'+id+' input');
-if (DNfirst != 0) {
-  for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
-}else{
-  for(var  i = 0; i < 6; i++) calendar += '<td>';
-}
-for(var  i = 1; i <= Dlast; i++) {
-  if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) {
-    calendar += '<td class="today">' + i;
-  }else{
-    if (  // список официальных праздников
-        (i == 1 && D.getMonth() == 0 && ((D.getFullYear() > 1897 && D.getFullYear() < 1930) || D.getFullYear() > 1947)) || // Новый год
-        (i == 2 && D.getMonth() == 0 && D.getFullYear() > 1992) || // Новый год
-        ((i == 3 || i == 4 || i == 5 || i == 6 || i == 8) && D.getMonth() == 0 && D.getFullYear() > 2004) || // Новый год
-        (i == 7 && D.getMonth() == 0 && D.getFullYear() > 1990) || // Рождество Христово
-        (i == 23 && D.getMonth() == 1 && D.getFullYear() > 2001) || // День защитника Отечества
-        (i == 8 && D.getMonth() == 2 && D.getFullYear() > 1965) || // Международный женский день
-        (i == 1 && D.getMonth() == 4 && D.getFullYear() > 1917) || // Праздник Весны и Труда
-        (i == 9 && D.getMonth() == 4 && D.getFullYear() > 1964) || // День Победы
-        (i == 12 && D.getMonth() == 5 && D.getFullYear() > 1990) || // День России (декларации о государственном суверенитете Российской Федерации ознаменовала окончательный Распад СССР)
-        (i == 7 && D.getMonth() == 10 && (D.getFullYear() > 1926 && D.getFullYear() < 2005)) || // Октябрьская революция 1917 года
-        (i == 8 && D.getMonth() == 10 && (D.getFullYear() > 1926 && D.getFullYear() < 1992)) || // Октябрьская революция 1917 года
-        (i == 4 && D.getMonth() == 10 && D.getFullYear() > 2004) // День народного единства, который заменил Октябрьскую революцию 1917 года
-       ) {
-      calendar += '<td class="holiday">' + i;
-    }else{
-      calendar += '<td>' + i;
-    }
-  }
-  if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) {
-    calendar += '<tr>';
-  }
-}
-for(var  i = DNlast; i < 7; i++) calendar += '<td>&nbsp;';
-document.querySelector('#'+id+' tbody').innerHTML = calendar;
-g.value = D.getFullYear();
-m.selected = true;
-if (document.querySelectorAll('#'+id+' tbody tr').length < 6) {
-    document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
-}
-document.querySelector('#'+id+' option[value="' + new Date().getMonth() + '"]').style.color = 'rgb(220, 0, 0)'; // в выпадающем списке выделен текущий месяц
-}
-Calendar3("calendar3",new Date().getFullYear(),new Date().getMonth());
-document.querySelector('#calendar3').onchange = function Kalendar3() {
-  Calendar3("calendar3",document.querySelector('#calendar3 input').value,parseFloat(document.querySelector('#calendar3 select').options[document.querySelector('#calendar3 select').selectedIndex].value));
-}
-</script>
+		
 
 
-	
-</form>
+
+		    
+</body>
+</html>
