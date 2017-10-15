@@ -1,7 +1,7 @@
 <?php
 $db = mysql_connect('localhost', 'root', '');
 
-mysql_select_db("test", $db);
+mysql_select_db("prof_br", $db);
 $data = $_POST;
 if( isset($data['do_login']) )
 {
